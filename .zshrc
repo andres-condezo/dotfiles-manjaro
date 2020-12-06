@@ -143,7 +143,7 @@ alias webdev="cd /run/media/adrs/'Nuevo vol'/webDevelopment"
 alias pz="cd /run/media/adrs/'Nuevo vol'/Documentos/platzi"
 alias lv="nvim -c':e#<1'"
 alias v="nvim"
-alias vrc="nvim ~/.vimrc"
+alias vrc="nvim ~/.config/nvim"
 alias zrc="nvim ~/.zshrc"
 alias brc="nvim ~/.bashrc"
 alias x=exit
@@ -151,6 +151,7 @@ alias clip="xclip"
 alias pclip="xclip -out"
 alias cpwd="pwd | tr -d '\n' | xclip && echo 'pwd copied to clipboard'"
 alias open="xdg-open"
+alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
+alias tree='ls-tree -r master --name-only'
 LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
 
-alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
