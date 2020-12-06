@@ -137,4 +137,6 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
 alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
