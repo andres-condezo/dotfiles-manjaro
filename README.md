@@ -1,1 +1,1 @@
-This is a REPO gfor my dotfiles from Manjaro.
+This is a REPO for my dotfiles from Manjaro.
