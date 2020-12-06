@@ -8,7 +8,17 @@ export ZSH="/home/adrs/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="spaceship"
+
 ZSH_THEME="robbyrussell"
+# Set spacship prompt
+
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_PROMPT_SEPARATE_LINE=false
+SPACESHIP_USER_SHOW=always
+SPACESHIP_PACKAGE_SHOW=false
+SPACESHIP_DIR_TRUNC=0
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,11 +87,28 @@ plugins=(
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+# plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+#Enable vi mode
+bindkey -v
+export KEYTIMEOUT=1
+ 
+
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# Edit line in vim with ctrl-e:
+ autoload edit-command-line; zle -N edit-command-line
+ bindkey '^e' edit-command-line
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -107,4 +134,22 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cl="clear; pwd; ls"
+alias c:="cd /mnt/c"
+alias d:="cd /mnt/d"
+alias e:="cd /mnt/e"
+# alias cl="clear; ls"
+alias clr="clear"
+alias webdev="/mnt/d/webDevelopment"
+alias proyectos="/home/adrs/proyectos"
+alias pz="/mnt/d/Documentos/platzi"
+alias lv="nvim -c':e#<1'"
+alias v="nvim"
+alias vrc="nvim ~/.vimrc"
+alias zrc="nvim ~/.zshrc"
+alias brc="nvim ~/.bashrc"
+alias x=exit
+alias clip="clip.exe"
+alias cpwd="pwd | tr -d '\n' | clip.exe && echo 'pwd copied to clipboard'"
+LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
+
 alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
