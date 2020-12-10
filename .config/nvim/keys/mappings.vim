@@ -3,7 +3,7 @@
 
 inoremap ii <ESC>
 
-nmap <Leader>w :wq!<CR>
+nmap <Leader>w :wq<CR>
 nmap <Leader>q :q!<CR>
 nmap <Leader>cl :noh<CR>
 

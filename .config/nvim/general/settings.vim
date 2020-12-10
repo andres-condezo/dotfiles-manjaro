@@ -20,7 +20,7 @@ set title
 syntax enable                           " Enables syntax highlighting
 set spelllang=en,es                     " Corregir palabras usando diccionarios en inglés y español
 set hidden                              " Required to keep multiple buffers open multiple buffers
-"set nowrap                              " Display long lines as just one line
+set nowrap                              " Display long lines as just one line
 set pumheight=10                        " Makes pop up menu smaller
 set fileencoding=utf-8                  " The encoding written to file
 set encoding=utf-8                      " The encoding displayed

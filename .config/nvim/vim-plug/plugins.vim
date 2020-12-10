@@ -18,11 +18,18 @@ Plug 'jiangmiao/auto-pairs'
 " airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Stable version of coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
-" Themes
+"-------------------------------------------------------------------------
+"------------------------ Themes -----------------------------------------
 " gruvbox theme
 Plug 'morhetz/gruvbox'
 " onedark theme
 Plug 'joshdick/onedark.vim'
+" Nord theme
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
