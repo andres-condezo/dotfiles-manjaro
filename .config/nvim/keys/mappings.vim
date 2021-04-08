@@ -25,7 +25,7 @@ map <Leader>trm :terminal<CR>
 map <Leader>cc ct
 
 " Call reload to apply the latest .vimrc contents
-command! Reload execute "source ~/.vimrc"
+" command! Reload execute "source ~/.vimrc"
 
 " FZF BLines
 

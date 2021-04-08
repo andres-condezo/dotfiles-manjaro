@@ -6,9 +6,22 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   "autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-call plug#begin('~/.config/nvim/autoload/plugged')
 
+call plug#begin('~/.config/nvim/autoload/plugged')
     
+"-------------------------------------------------------------------------
+"------------------------ Themes -----------------------------------------
+
+" gruvbox theme
+Plug 'morhetz/gruvbox'
+" onedark theme
+Plug 'joshdick/onedark.vim'
+" Nord theme
+Plug 'arcticicestudio/nord-vim'
+
+"-------------------------------------------------------------------------
+"------------------------ Plugins-----------------------------------------
+
 " Better Syntax Support
 Plug 'sheerun/vim-polyglot'
 " File Explorer
@@ -22,14 +35,5 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-
-"-------------------------------------------------------------------------
-"------------------------ Themes -----------------------------------------
-" gruvbox theme
-Plug 'morhetz/gruvbox'
-" onedark theme
-Plug 'joshdick/onedark.vim'
-" Nord theme
-Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
