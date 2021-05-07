@@ -3,7 +3,7 @@
 
 filetype plugin indent on
 
-set ignorecase                        " Ignorar mayúsculas al hacer una búsqueda
+set ignorecase                          "Ignorar mayúsculas al hacer una búsqueda
 set smartcase                         " No ignorar mayúsculas si la palabra a buscar contiene mayúsculas
 " Search fown into subfolders
 " Provides tab-completion for all file-related tasks
@@ -12,7 +12,6 @@ set path+=**
 set termguicolors                       " Active true colors en la terminal
 set nocompatible
 set numberwidth=1
-" set noshowmode
 set showcmd
 set showmatch
 set laststatus=2
@@ -20,7 +19,7 @@ set title
 syntax enable                           " Enables syntax highlighting
 set spelllang=en,es                     " Corregir palabras usando diccionarios en inglés y español
 set hidden                              " Required to keep multiple buffers open multiple buffers
-set nowrap                              " Display long lines as just one line
+" set nowrap                              " Display long lines as just one line
 set pumheight=10                        " Makes pop up menu smaller
 set fileencoding=utf-8                  " The encoding written to file
 set encoding=utf-8                      " The encoding displayed
@@ -32,9 +31,6 @@ set splitbelow                          " Horizontal splits will automatically b
 set splitright                          " Vertical splits will automatically be to the right
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
-set shiftwidth=2                        " Change the number of space characters inserted for indentation
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
 set laststatus=0                        " Always display the status line
 set number                              " Line numbers
 set relativenumber
@@ -61,21 +57,55 @@ cmap w!! w !sudo tee %
 " Display all matching files when we tab complete
 set wildmenu
 set wildmode=longest,list,full
+set scrolloff=7
+
+set listchars+=tab:│\       " this is i_CTRL-k vv and escaped space (\ )
+set list
 
 
 "--------------------------------------------------------------------------------------------------
 "-------------------------------- TABS ------------------------------------------------------------
 
+
 " Indentación a 2 espacios
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=8
+set shiftwidth=8
+"set shiftwidth=2                        " Change the number of space characters inserted for indentation
+set softtabstop=8
 set shiftround
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set expandtab                           " Converts tabs to spaces
+
+set smartindent                         " Makes indenting smart
+set autoindent                          " Good auto indent
+
+set noexpandtab
+"set expandtab                           " Converts tabs to spaces
 
 "--------------------------------------------------------------------------------------------------
 "------------------------------- MAP LEADER -------------------------------------------------------
 
 let mapleader=" "
 
+
+"--------------------------------------------------------------------------------------------------
+"------------------------------- EXECUTABLE -------------------------------------------------------
+augroup exe_code
+	autocmd!
+
+	"execute python code
+	autocmd FileType python nnoremap <buffer> <leader>p
+		\ :sp<CR> :term python3 %<CR> :startinsert<CR>
+
+	"execute javascript code
+	autocmd FileType javascript nnoremap <buffer> <leader>p
+		\ :sp<CR> :term node %<CR> :startinsert<CR>
+
+	"execute bash code
+	autocmd FileType bash,sh nnoremap <buffer> <leader>p
+		\ :sp<CR> :term bash %<CR> :startinsert<CR>
+
+	"execute C code
+	autocmd FileType c nnoremap <buffer> <leader>p
+		\ :sp<CR> :term ~/c %<CR> :startinsert<CR>
+
+augroup END
