@@ -134,7 +134,6 @@ bindkey -v '^?' backward-delete-char
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cl="clear; pwd; ls"
-# alias c:="cd /mnt/c"
 alias d:="cd /run/media/adrs/'Nuevo vol'"
 alias e:="cd /run/media/adrs/Segundo"
 # alias cl="clear; ls"
@@ -153,5 +152,19 @@ alias cpwd="pwd | tr -d '\n' | xclip && echo 'pwd copied to clipboard'"
 alias open="xdg-open"
 alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
 alias tree='ls-tree -r master --name-only'
+alias hol='cd "/run/media/adrs/Nuevo vol/Documentos/Holberton/"'
+
 LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
 
+c(){
+	  folder="compilers/"
+	  if [[ ! -d $folder   ]]; then
+	    mkdir $folder
+	    fi
+	    entry=$(echo "$1" | sed 's/\(\w\)\(\.c\)/\1/g')
+		   cc -o $entry $1
+	     mv $entry $folder
+	     ./$folder/$entry
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
