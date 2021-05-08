@@ -94,10 +94,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 #Enable vi mode
+#
 bindkey -v
 export KEYTIMEOUT=1
- 
-
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -106,9 +105,62 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+# zle-line-init() {
+#     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+#     echo -ne "\e[5 q"
+# }
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+bindkey -M viins 'jj' vi-cmd-mode
+#
+# bindkey jj vi-cmd-mode
+# bindkey -s jj '\e'
+
+# VIM_MODE_VICMD_KEY='^D'
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+# Use ranger to switch directories and bind it to ctrl-p
+rngcd () {
+    tmp="$(mktemp)"
+    ranger --choosedir="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        # [ --datadir "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^p' 'rngcd\n'
+
 # Edit line in vim with ctrl-e:
- autoload edit-command-line; zle -N edit-command-line
- bindkey '^e' edit-command-line
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -153,6 +205,9 @@ alias open="xdg-open"
 alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
 alias tree='ls-tree -r master --name-only'
 alias hol='cd "/run/media/adrs/Nuevo vol/Documentos/Holberton/"'
+alias rng='ranger'
+alias py='python3'
+alias ipy='ipython3'
 
 LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
 
@@ -168,3 +223,52 @@ c(){
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+ctrlz() {
+  if [[ $#BUFFER == 0 ]]; then
+    fg >/dev/null 2>&1 && zle redisplay
+  else
+    zle push-input
+  fi
+}
+zle -N ctrlz
+bindkey '^Z' ctrlz
+
+bindkey -M menuselect '^M' .accept-line
+
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+
+
+# ci"
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+# ci{, ci(, di{ etc..
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+
+# overload-tab () {
+# if (( CURSOR < 1 ))
+# then zle your-new-widget
+# else zle expand-or-complete
+# fi
+# }
+# zle -N overload-tab
+# bindkey $'\t' overload-tab
+
+
+bindkey '^ ' autosuggest-accept
