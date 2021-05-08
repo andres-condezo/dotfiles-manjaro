@@ -81,31 +81,3 @@ set autoindent                          " Good auto indent
 set noexpandtab
 "set expandtab                           " Converts tabs to spaces
 
-"--------------------------------------------------------------------------------------------------
-"------------------------------- MAP LEADER -------------------------------------------------------
-
-let mapleader=" "
-
-
-"--------------------------------------------------------------------------------------------------
-"------------------------------- EXECUTABLE -------------------------------------------------------
-augroup exe_code
-	autocmd!
-
-	"execute python code
-	autocmd FileType python nnoremap <buffer> <leader>p
-		\ :sp<CR> :term python3 %<CR> :startinsert<CR>
-
-	"execute javascript code
-	autocmd FileType javascript nnoremap <buffer> <leader>p
-		\ :sp<CR> :term node %<CR> :startinsert<CR>
-
-	"execute bash code
-	autocmd FileType bash,sh nnoremap <buffer> <leader>p
-		\ :sp<CR> :term bash %<CR> :startinsert<CR>
-
-	"execute C code
-	autocmd FileType c nnoremap <buffer> <leader>p
-		\ :sp<CR> :term ~/c %<CR> :startinsert<CR>
-
-augroup END
