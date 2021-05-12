@@ -93,10 +93,13 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+#---------------------------------------------------------------
+#------------------- VIM MODE ----------------------------------
+#
 #Enable vi mode
 #
 bindkey -v
-export KEYTIMEOUT=1
+export KEYTIMEOUT=20
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -104,6 +107,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
+bindkey -M viins 'ii' vi-cmd-mode
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -126,12 +130,112 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-bindkey -M viins 'jj' vi-cmd-mode
+
+# ci"
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+# ci{, ci(, di{ etc..
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
 #
 # bindkey jj vi-cmd-mode
-# bindkey -s jj '\e'
+#bindkey -s jj '\e'
 
 # VIM_MODE_VICMD_KEY='^D'
+
+#------------------- FIN VIM MODE ----------------------------------
+#---------------------------------------------------------------
+
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+
+#---------------------------------------------------------------
+#------------------- ALIAS ----------------------------------
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias cl="clear; pwd; ls"
+alias d:="cd /run/media/adrs/'Nuevo vol'"
+alias e:="cd /run/media/adrs/Segundo"
+# alias cl="clear; ls"
+alias clr="clear"
+alias webdev="cd /run/media/adrs/'Nuevo vol'/webDevelopment"
+alias pz="cd /run/media/adrs/'Nuevo vol'/Documentos/platzi"
+alias lv="nvim -c':e#<1'"
+alias v="nvim"
+alias vrc="nvim ~/.config/nvim/init.vim"
+alias zrc="nvim ~/.zshrc"
+alias brc="nvim ~/.bashrc"
+alias x=exit
+alias cli="xclip"
+alias pcli="xclip -out"
+alias cpwd="pwd | tr -d '\n' | xclip && echo 'pwd copied to clipboard'"
+alias open="xdg-open"
+alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
+alias tree='ls-tree -r master --name-only'
+alias hol='cd "/run/media/adrs/Nuevo vol/Documentos/Holberton/"'
+alias rng='ranger'
+alias py='python3'
+alias ipy='ipython3'
+
+#---------------------------------------------------------------
+#------------------- FUNCTIONS ----------------------------------
+
+c(){
+	  folder="compilers/"
+	  if [[ ! -d $folder   ]]; then
+	    mkdir $folder
+	    fi
+	    entry=$(echo "$1" | sed 's/\(\w\)\(\.c\)/\1/g')
+		   cc -o $entry $1
+	     mv $entry $folder
+	     ./$folder/$entry
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+ctrlz() {
+  if [[ $#BUFFER == 0 ]]; then
+    fg >/dev/null 2>&1 && zle redisplay
+  else
+    zle push-input
+  fi
+}
+zle -N ctrlz
+bindkey '^Z' ctrlz
 
 # Use lf to switch directories and bind it to ctrl-o
 lfcd () {
@@ -158,109 +262,6 @@ rngcd () {
 }
 bindkey -s '^p' 'rngcd\n'
 
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias cl="clear; pwd; ls"
-alias d:="cd /run/media/adrs/'Nuevo vol'"
-alias e:="cd /run/media/adrs/Segundo"
-# alias cl="clear; ls"
-alias clr="clear"
-alias webdev="cd /run/media/adrs/'Nuevo vol'/webDevelopment"
-alias pz="cd /run/media/adrs/'Nuevo vol'/Documentos/platzi"
-alias lv="nvim -c':e#<1'"
-alias v="nvim"
-alias vrc="nvim ~/.config/nvim/init.vim"
-alias zrc="nvim ~/.zshrc"
-alias brc="nvim ~/.bashrc"
-alias x=exit
-alias cli="xclip"
-alias pcli="xclip -out"
-alias cpwd="pwd | tr -d '\n' | xclip && echo 'pwd copied to clipboard'"
-alias open="xdg-open"
-alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
-alias tree='ls-tree -r master --name-only'
-alias hol='cd "/run/media/adrs/Nuevo vol/Documentos/Holberton/"'
-alias rng='ranger'
-alias py='python3'
-alias ipy='ipython3'
-
-LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
-
-c(){
-	  folder="compilers/"
-	  if [[ ! -d $folder   ]]; then
-	    mkdir $folder
-	    fi
-	    entry=$(echo "$1" | sed 's/\(\w\)\(\.c\)/\1/g')
-		   cc -o $entry $1
-	     mv $entry $folder
-	     ./$folder/$entry
-}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-ctrlz() {
-  if [[ $#BUFFER == 0 ]]; then
-    fg >/dev/null 2>&1 && zle redisplay
-  else
-    zle push-input
-  fi
-}
-zle -N ctrlz
-bindkey '^Z' ctrlz
-
-bindkey -M menuselect '^M' .accept-line
-
-
-export EDITOR='nvim'
-export VISUAL='nvim'
-
-
-
-# ci"
-autoload -U select-quoted
-zle -N select-quoted
-for m in visual viopp; do
-  for c in {a,i}{\',\",\`}; do
-    bindkey -M $m $c select-quoted
-  done
-done
-
-# ci{, ci(, di{ etc..
-autoload -U select-bracketed
-zle -N select-bracketed
-for m in visual viopp; do
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $m $c select-bracketed
-  done
-done
-
-
 # overload-tab () {
 # if (( CURSOR < 1 ))
 # then zle your-new-widget
@@ -270,5 +271,17 @@ done
 # zle -N overload-tab
 # bindkey $'\t' overload-tab
 
+#---------------------------------------------------------------
+#-------------------  BINDKEYS AND EXPORTS ----------------------------------
 
+bindkey -M menuselect '^M' .accept-line
 bindkey '^ ' autosuggest-accept
+
+LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS
+
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
