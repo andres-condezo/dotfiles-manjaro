@@ -32,8 +32,6 @@ set splitright                          " Vertical splits will automatically be 
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
 set laststatus=0                        " Always display the status line
-set number                              " Line numbers
-set relativenumber
 set cursorline                          " Enable highlighting of the current line
 set background=dark                     " tell vim what the background color looks like
 set hidden                              " Permitir cambiar de buffers sin tener que guardarlos
@@ -64,20 +62,24 @@ set list
 
 
 "--------------------------------------------------------------------------------------------------
-"-------------------------------- TABS ------------------------------------------------------------
+"----------------------------- absolute, relative and hybrid line numbers -------------------------
 
+set number relativenumber
 
-" Indentación a 2 espacios
-set tabstop=8
-set shiftwidth=8
-"set shiftwidth=2                        " Change the number of space characters inserted for indentation
-set softtabstop=8
-set shiftround
-set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
+"--------------------------------------------------------------------------------------------------
+"-------------------------------- COLUMN lIMITS ---------------------------------------------------
 
-set noexpandtab
-"set expandtab                           " Converts tabs to spaces
-
+autocmd FileType c setlocal  colorcolumn=80
+autocmd FileType vim setlocal  colorcolumn=0 expandtab
+"let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"set colorcolumn=+1
+"set colorcolumn=-1,+30
+"hi ColorColumn ctermbg=Cyan guibg=Cyan
+highlight ColorColumn guibg=#25223d
+highlight ErrorMsg guibg=#25223d
