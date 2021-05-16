@@ -46,7 +46,7 @@ vnoremap J :m '>+1<CR>gv=gv
 "----------------------------------  SPLITS -------------------------------------------------------
 
 " Remove pipes
-set fillchars+=vert:\ 
+set fillchars+=vert:\		"remove pipe and add a space
 
 " Splits
 nnoremap <Leader>h :split<CR>
