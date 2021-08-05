@@ -65,6 +65,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 " sintaxis highlighting
 Plug 'vim-syntastic/syntastic'
+
 " support sass colors
 Plug 'shmargum/vim-sass-colors'
 " help you read complex code by showing diff level of parentheses in diff color
@@ -74,9 +75,13 @@ Plug 'luochen1990/rainbow'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
 Plug 'Yggdroot/indentLine'
+
+Plug 'pearofducks/ansible-vim'
+" install and use neomake linting
+Plug 'neomake/neomake'
 
 "-------------------------------------------------------------------------------------------
 "---------------------------- NEOSNIPPETS --------------------------------------------------

@@ -19,7 +19,7 @@ set title
 syntax enable                           " Enables syntax highlighting
 set spelllang=en,es                     " Corregir palabras usando diccionarios en inglés y español
 set hidden                              " Required to keep multiple buffers open multiple buffers
-" set nowrap                              " Display long lines as just one line
+"set nowrap                              " Display long lines as just one line
 set pumheight=10                        " Makes pop up menu smaller
 set fileencoding=utf-8                  " The encoding written to file
 set encoding=utf-8                      " The encoding displayed
@@ -66,20 +66,16 @@ set list
 
 set number relativenumber
 
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+"   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" augroup END
 
 "--------------------------------------------------------------------------------------------------
-"-------------------------------- COLUMN lIMITS ---------------------------------------------------
+"------------------------------- MAP LEADER -------------------------------------------------------
 
-autocmd FileType c setlocal  colorcolumn=80
-autocmd FileType vim setlocal  colorcolumn=0 expandtab
-"let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
-"set colorcolumn=+1
-"set colorcolumn=-1,+30
-"hi ColorColumn ctermbg=Cyan guibg=Cyan
-highlight ColorColumn guibg=#25223d
-highlight ErrorMsg guibg=#25223d
+let mapleader=" "
+
+autocmd bufwritepost *.js silent !semistandard % --fix
+set autoread

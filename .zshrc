@@ -104,11 +104,12 @@ alias pcli="xclip -out"
 alias cpwd="pwd | tr -d '\n' | xclip && echo 'pwd copied to clipboard'"
 alias open="xdg-open"
 alias gdf='/usr/bin/git --git-dir=/home/adrs/dotfilesManjaro --work-tree=/home/adrs'
-alias tree='ls-tree -r master --name-only'
+alias treel='ls-tree -r master --name-only'
 alias hol='cd "/run/media/adrs/Nuevo vol/Documentos/Holberton/"'
 alias rng='ranger'
 alias py='python3'
 alias ipy='ipython3'
+alias aenv='source venv/bin/activate'
 
 #---------------------------------------------------------------
 #------------------- FUNCTIONS ----------------------------------
@@ -164,7 +165,7 @@ bindkey -s '^p' 'rngcd\n'
 #---------------------------------------------------------------
 #-------------------  BINDKEYS AND EXPORTS ----------------------------------
 
-bindkey -M menuselect '^M' .accept-line
+# bindkey -M menuselect '^M' .accept-line
 bindkey '^ ' autosuggest-accept
 
 LS_COLORS=$LS_COLORS:'tw=01;35:ow=01;35:' ; export LS_COLORS

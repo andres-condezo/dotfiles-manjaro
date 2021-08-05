@@ -25,12 +25,13 @@ source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/multicursor.vim
 source $HOME/.config/nvim/plug-config/ranger.vim
-source $HOME/.config/nvim/plug-config/easymotion.vim
 source $HOME/.config/nvim/plug-config/cocexplorer.vim
 source $HOME/.config/nvim/plug-config/syntastic.vim
+source $HOME/.config/nvim/plug-config/easymotion.vim
 
-"--------------------------------------------------------------------------
-"-------------------------------- TABS AND MAPS------------------------------------
+"------------------------------------------------------------------------
+"------------------------ Settings --------------------------------------
 "
+source $HOME/.config/nvim/general/execode.vim
 source $HOME/.config/nvim/general/tabs.vim
 source $HOME/.config/nvim/keys/mappings.vim
